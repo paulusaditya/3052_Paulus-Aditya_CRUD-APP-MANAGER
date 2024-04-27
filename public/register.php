@@ -164,7 +164,11 @@
     <div class="container">
         <div class="login-box">
             <p>Register Students Apps</p>
+<<<<<<< HEAD:public/register.php
             <form action="register1.php" method="POST">
+=======
+            <form action="register.php" method="POST">
+>>>>>>> c9f5cfe9c525671d4748f3c953f17f91ea619b1c:register.html
                 <div class="user-box">
                     <input required="" name="fullname" type="text" id="fullname">
                     <label for="fullname">Full Name</label>
