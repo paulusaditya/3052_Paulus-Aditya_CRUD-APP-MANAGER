@@ -1,28 +1,30 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Apps | Register</title>
     <link rel="icon" type="image/x-icon" href="img/Logo (2).png">
+    <title>Student Apps | Login</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         *{
             font-family: 'Poppins', sans-serif;
         }
-        
+
         body {
             background-image: url(img/background.png);
             background-repeat: no-repeat;
             background-size: 100%;
-            
+            font-family: cursive;
         }
-
         form {
             display: flex;
             flex-direction: column;
         }
+
         .login-box {
             position: absolute;
             top: 50%;
@@ -42,9 +44,10 @@
             padding: 0;
             color: #EC9F13;
             text-align: center;
-            font-size: 1.5rem;
             font-weight: bold;
             letter-spacing: 1px;
+            font-size: 25px;
+            font-weight: 600;
         }
 
         .login-box .user-box {
@@ -129,7 +132,6 @@
             color: var(--button_outline_color);
             transform: translateY(-0.2em);
             transition: transform 0.1s ease;
-
         }
 
         button:hover .button_top {
@@ -163,38 +165,22 @@
 <body>
     <div class="container">
         <div class="login-box">
-            <p>Register Students Apps</p>
-            <form>
+            <p>Login Students Apps</p>
+            <form action="login.php" method="post">
                 <div class="user-box">
-                    <input required="" name="" type="text">
-                    <label>Full Name</label>
+                    <input required="" name="email" type="text" id="email">
+                    <label for="email">Email</label>
                 </div>
                 <div class="user-box">
-                    <input required="" name="" type="text">
-                    <label>NIM</label>
-                </div>
-                <div class="user-box">
-                    <input required="" name="" type="text">
-                    <label>Email</label>
-                </div>
-                <div class="user-box">
-                    <input required="" name="" type="text">
-                    <label>Study Program</label>
-                </div>
-                <div class="user-box">
-                    <input required="" name="" type="text">
-                    <label>Faculty</label>
-                </div>
-                <div class="user-box">
-                    <input required="" name="" type="password">
-                    <label>Password</label>
+                    <input required="" name="password" type="password" id="password">
+                    <label for="password">Password</label>
                 </div>
                 <button>
-                    <span class="button_top"> Register
+                    <span class="button_top"> Login
                     </span>
                 </button>
             </form>
-            <p>Don't have an account? <a href="index.html" class="a2">Login.</a></p>
+            <p>Don't have an account? <a href="register.php" class="a2">Register.</a></p>
         </div>
     </div>
 </body>
