@@ -1,5 +1,6 @@
 <?php
 
+$db = mysqli_connect('localhost', 'root', '', 'db_students');
 function select($query)
 {
     $db = mysqli_connect('localhost', 'root', '', 'db_students');
@@ -56,12 +57,9 @@ function delete($id)
     $db = mysqli_connect('localhost', 'root', '', 'db_students');
 
     $query = "DELETE FROM tbl_students WHERE id = $id";
-    mysqli_query($db, $query);
-
+    mysqli_query($db,$query);
     return mysqli_affected_rows($db);
-
 }
-
 
 
 ?>

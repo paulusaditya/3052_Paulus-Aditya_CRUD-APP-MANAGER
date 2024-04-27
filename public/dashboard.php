@@ -1,15 +1,31 @@
 <?php
 $db = mysqli_connect('localhost', 'root', '', 'db_students');
 
-include "function.php";
+include 'function.php';
 
-if (isset($_POST['add'])){
+$id = isset($_GET['id']) ? (int) $_GET['id'] : null;
+if ($id !== null) {
+    $tbl_students = select("SELECT * FROM tbl_students WHERE id = $id");
+
+    // Cek apakah ada data yang ditemukan
+    if (!empty($tbl_students)) {
+        $tbl_students = $tbl_students[0];
+    } else {
+        // Handle ketika data tidak ditemukan
+        // Misalnya, arahkan pengguna ke halaman lain atau tampilkan pesan kesalahan
+        // Contoh:
+        echo 'Data not found.';
+        exit(); // Hentikan eksekusi kode selanjutnya
+    }
+}
+
+if (isset($_POST['add'])) {
     if (create($_POST) > 0) {
         echo "<script>
         alert('Data Berhasil di tambahkan');
         document.location.href = 'dashboard.php';
         </script>";
-    }else {
+    } else {
         echo "<script>
         alert('Data Gagal di tambahkan');
         document.location.href = 'dashboard.php';
@@ -17,21 +33,19 @@ if (isset($_POST['add'])){
     }
 }
 
-if (isset($_POST['edit'])){
+if (isset($_POST['edit'])) {
     if (edit($_POST) > 0) {
         echo "<script>
         alert('Data Berhasil diubah');
         document.location.href = 'dashboard.php';
         </script>";
-    }else {
+    } else {
         echo "<script>
         alert('Data Gagal diubah');
         document.location.href = 'dashboard.php';
         </script>";
     }
 }
-
-
 
 $data_students = select('SELECT * FROM tbl_students');
 ?>
@@ -253,12 +267,97 @@ $data_students = select('SELECT * FROM tbl_students');
                                 <td><?= $tbl_students['faculty'] ?></td>
                                 <td><?= $tbl_students['programstudy'] ?></td>
                                 <td>
-                                    <a href="editdata.php?id=<?= $tbl_students['id']; ?>" class="edit" data-toggle="modal"><i
+                                    <a href="#editStudentModal<?= $id ?>" class="edit" data-toggle="modal"><i
                                             class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="#deleteStudentModal?id=<?= $tbl_students['id']; ?>" class="delete" data-toggle="modal"><i
-                                            class="material-icons" data-toggle="tooltip" title="Delete" onclick="return confirm ('Yakin Dihapus?')">&#xE872;</i></a>
+                                    <a href="#deleteStudentModal<?= $id ?>" class="delete" data-toggle="modal"><i
+                                            class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                                 </td>
                             </tr>
+
+                            <div id="editStudentModal<?= $id ?>" class="modal fade" data-backdrop="static">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form action="" method="post">
+                                            <input type="text" name="id" value="<?= $tbl_students['id'] ?>">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Edit Student</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label>NIM</label>
+                                                    <input type="text" class="form-control" name="nim" id="nim" value="<?php echo isset(
+                                                        $tbl_students['nim']
+                                                    )
+                                                        ? $tbl_students['nim']
+                                                        : ''; ?>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Full Name</label>
+                                                    <input type="text" class="form-control" name="fullname" id="fullname" value="<?php echo isset(
+                                                        $tbl_students['fullname']
+                                                    )
+                                                        ? $tbl_students['fullname']
+                                                        : ''; ?>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input type="email" class="form-control" name="email" id="email" value="<?php echo isset(
+                                                        $tbl_students['email']
+                                                    )
+                                                        ? $tbl_students['email']
+                                                        : ''; ?>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Faculty</label>
+                                                    <input type="text" class="form-control" name="faculty" id="faculty" value="<?php echo isset(
+                                                        $tbl_students['faculty']
+                                                    )
+                                                        ? $tbl_students['faculty']
+                                                        : ''; ?>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Program Study</label>
+                                                    <input type="text" class="form-control" name="programstudy" id="programstudy" value="<?php echo isset(
+                                                        $tbl_students['programstudy']
+                                                    )
+                                                        ? $tbl_students['programstudy']
+                                                        : ''; ?>" required>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                <input type="submit" class="btn btn-info" name="edit" value="Save">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Delete Modal HTML -->
+                            <div id="deleteStudentModal<?= $id ?>" class="modal fade" data-backdrop="static">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form method="$_POST" action="deletedata.php">
+                                        <input type="text" name="id" value="<?= $tbl_students['id'] ?>">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Delete Student</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Are you sure you want to delete these Records?</p>
+                                                <p class="text-warning"><small>This action cannot be undone.</small></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                                <input type="submit" class="btn btn-danger" name="delete" value="Delete">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
                             <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -318,106 +417,7 @@ $data_students = select('SELECT * FROM tbl_students');
         </div>
         <!-- Edit Modal HTML -->
 
-        <?php
-            $id = (isset($_GET['id'])) ? (int)$_GET['id'] : null;
 
-            if ($id !== null) {
-                $tbl_students = select("SELECT * FROM tbl_students WHERE id = $id");
-
-                // Cek apakah ada data yang ditemukan
-                if (!empty($tbl_students)) {
-                    $tbl_students = $tbl_students[0];
-                } else {
-                    // Handle ketika data tidak ditemukan
-                    // Misalnya, arahkan pengguna ke halaman lain atau tampilkan pesan kesalahan
-                    // Contoh:
-                    echo "Data not found.";
-                    exit; // Hentikan eksekusi kode selanjutnya
-                }
-            }
-        ?>
-
-
-
-
-<div id="editStudentModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form action="" method="post">
-                <input type="text" name="id" value="<?= $tbl_students['id']; ?>">
-                <div class="modal-header">
-                    <h4 class="modal-title">Edit Student</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>NIM</label>
-                        <input type="text" class="form-control" name="nim" id="nim" value="<?php echo isset($tbl_students['nim']) ? $tbl_students['nim'] : ''; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Full Name</label>
-                        <input type="text" class="form-control" name="fullname" id="fullname" value="<?php echo isset($tbl_students['fullname']) ? $tbl_students['fullname'] : ''; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" class="form-control" name="email" id="email" value="<?php echo isset($tbl_students['email']) ? $tbl_students['email'] : ''; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Faculty</label>
-                        <input type="text" class="form-control" name="faculty" id="faculty" value="<?php echo isset($tbl_students['faculty']) ? $tbl_students['faculty'] : ''; ?>" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Program Study</label>
-                        <input type="text" class="form-control" name="programstudy" id="programstudy" value="<?php echo isset($tbl_students['programstudy']) ? $tbl_students['programstudy'] : ''; ?>" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <input type="submit" class="btn btn-info" name="edit" value="Save">
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<?php
-        // $id = (int)$_GET['id'];
-
-        // if(delete($id) > 0){
-        //     echo "<script>
-        //     alert('Data Berhasil dihapus');
-        //     document.location.href = 'dashboard.php';
-        //     </script>";
-        // }else {
-        //     echo "<script>
-        //     alert('Data Gagal dihapus');
-        //     document.location.href = 'dashboard.php';
-        //     </script>";
-        // }
-
-?>
-
-        <!-- Delete Modal HTML -->
-        <div id="deleteStudentModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Delete Student</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Are you sure you want to delete these Records?</p>
-                            <p class="text-warning"><small>This action cannot be undone.</small></p>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-danger" name="delete" value="Delete">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </section>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>
