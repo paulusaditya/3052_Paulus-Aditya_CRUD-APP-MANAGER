@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="img/Logo (2).png">
+    <link rel="icon" type="image/x-icon" href="assets/Logo (2).png">
     <title>Student Apps | Login</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -15,7 +15,7 @@
         }
 
         body {
-            background-image: url(img/background.png);
+            background-image: url(assets/background.png);
             background-repeat: no-repeat;
             background-size: 100%;
             font-family: cursive;

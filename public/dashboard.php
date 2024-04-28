@@ -27,7 +27,7 @@ if (isset($_POST['add'])) {
         </script>";
     } else {
         echo "<script>
-        alert('Data Gagal di tambahkan');
+        alert('Data Berhasil di tambahkan');
         document.location.href = 'dashboard.php';
         </script>";
     }
@@ -77,7 +77,7 @@ $data_students = select('SELECT * FROM tbl_students');
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <script src="js/script.js" defer></script>
     <title>Student Apps | Dashboard</title>
-    <link rel="icon" type="image/x-icon" href="img/Logo (2).png">
+    <link rel="icon" type="image/x-icon" href="assets/Logo (2).png">
 </head>
 
 <body>
@@ -85,7 +85,7 @@ $data_students = select('SELECT * FROM tbl_students');
         <header>
             <div class="image-text">
                 <span class="image">
-                    <img src="img/logo (3).png" alt="">
+                    <img src="assets/logo (3).png" alt="">
                 </span>
                 <div class="text logo-text">
                     <span class="name">Students Apps</span>
@@ -227,7 +227,7 @@ $data_students = select('SELECT * FROM tbl_students');
                             <div class="col-sm-6">
                                 <a href="#addStudentModal" class="btn btn-success" data-toggle="modal"><i
                                         class="material-icons">&#xE147;</i> <span>Add New Student</span></a>
-                                <a href="#deleteStudentModal" class="btn btn-danger" data-toggle="modal"><i
+                                <a href="#deleteStudentModal1" class="btn btn-danger" data-toggle="modal"><i
                                         class="material-icons">&#xE15C;</i> <span>Delete</span></a>
                             </div>
                         </div>
@@ -247,6 +247,7 @@ $data_students = select('SELECT * FROM tbl_students');
                                 <th scope="col">Email</th>
                                 <th scope="col">Faculty</th>
                                 <th scope="col">Program Study</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">Actions</th>
                             </tr>
                         </thead>
@@ -266,6 +267,7 @@ $data_students = select('SELECT * FROM tbl_students');
                                 <td><?= $tbl_students['email'] ?></td>
                                 <td><?= $tbl_students['faculty'] ?></td>
                                 <td><?= $tbl_students['programstudy'] ?></td>
+                                <td><img style="width:100px;" src="img/<?= $tbl_students['image'] ?>" alt=""></td>
                                 <td>
                                     <a href="#editStudentModal<?= $id ?>" class="edit" data-toggle="modal"><i
                                             class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
@@ -274,11 +276,12 @@ $data_students = select('SELECT * FROM tbl_students');
                                 </td>
                             </tr>
 
+                            <!-- Edit Modal HTML -->
                             <div id="editStudentModal<?= $id ?>" class="modal fade" data-backdrop="static">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form action="" method="post">
-                                            <input type="text" name="id" value="<?= $tbl_students['id'] ?>">
+                                            <input type="hidden" name="id" value="<?= $tbl_students['id'] ?>">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Edit Student</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -340,7 +343,7 @@ $data_students = select('SELECT * FROM tbl_students');
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <form method="$_POST" action="deletedata.php">
-                                        <input type="text" name="id" value="<?= $tbl_students['id'] ?>">
+                                        <input type="hidden" name="id" value="<?= $tbl_students['id'] ?>">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Delete Student</h4>
                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -364,10 +367,10 @@ $data_students = select('SELECT * FROM tbl_students');
                     <div class="clearfix">
                         <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
                         <ul class="pagination">
-                            <li class="page-item disabled"><a href="#">Previous</a></li>
-                            <li class="page-item"><a href="#" class="page-link">1</a></li>
+                            <li class="page-item"><a href="#">Previous</a></li>
+                            <li class="page-item active"><a href="#" class="page-link">1</a></li>
                             <li class="page-item"><a href="#" class="page-link">2</a></li>
-                            <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                            <li class="page-item"><a href="#" class="page-link">3</a></li>
                             <li class="page-item"><a href="#" class="page-link">4</a></li>
                             <li class="page-item"><a href="#" class="page-link">5</a></li>
                             <li class="page-item"><a href="#" class="page-link">Next</a></li>
@@ -380,7 +383,8 @@ $data_students = select('SELECT * FROM tbl_students');
         <div id="addStudentModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="" method="post">>
+                    <form action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id">
                         <div class="modal-header">
                             <h4 class="modal-title">Add Student</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -406,6 +410,10 @@ $data_students = select('SELECT * FROM tbl_students');
                                 <label>Program Study</label>
                                 <input type="text" class="form-control" name="programstudy" id="programstudy" required>
                             </div>
+                            <div class="form-group">
+                                <label>Image</label>
+                                <input type="file" class="form-control" name="image" id="image" required>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
@@ -415,7 +423,6 @@ $data_students = select('SELECT * FROM tbl_students');
                 </div>
             </div>
         </div>
-        <!-- Edit Modal HTML -->
 
 
     </section>

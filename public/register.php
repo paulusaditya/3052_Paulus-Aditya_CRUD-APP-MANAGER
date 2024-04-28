@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Apps | Register</title>
-    <link rel="icon" type="image/x-icon" href="img/Logo (2).png">
+    <link rel="icon" type="image/x-icon" href="assets/Logo (2).png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         *{
@@ -13,7 +13,7 @@
         }
         
         body {
-            background-image: url(img/background.png);
+            background-image: url(assets/background.png);
             background-repeat: no-repeat;
             background-size: 100%;
             
@@ -164,11 +164,7 @@
     <div class="container">
         <div class="login-box">
             <p>Register Students Apps</p>
-<<<<<<< HEAD:public/register.php
             <form action="register1.php" method="POST">
-=======
-            <form action="register.php" method="POST">
->>>>>>> c9f5cfe9c525671d4748f3c953f17f91ea619b1c:register.html
                 <div class="user-box">
                     <input required="" name="fullname" type="text" id="fullname">
                     <label for="fullname">Full Name</label>
@@ -198,7 +194,7 @@
                     </span>
                 </button>
             </form>
-            <p>Don't have an account? <a href="index.php" class="a2">Login.</a></p>
+            <p> Have an account? <a href="index.php" class="a2">Login.</a></p>
         </div>
     </div>
 </body>
