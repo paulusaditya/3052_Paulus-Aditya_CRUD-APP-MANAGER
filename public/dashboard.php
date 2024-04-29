@@ -1,52 +1,6 @@
 <?php
-$db = mysqli_connect('localhost', 'root', '', 'db_students');
 
 include 'function.php';
-
-$id = isset($_GET['id']) ? (int) $_GET['id'] : null;
-if ($id !== null) {
-    $tbl_students = select("SELECT * FROM tbl_students WHERE id = $id");
-
-    // Cek apakah ada data yang ditemukan
-    if (!empty($tbl_students)) {
-        $tbl_students = $tbl_students[0];
-    } else {
-        // Handle ketika data tidak ditemukan
-        // Misalnya, arahkan pengguna ke halaman lain atau tampilkan pesan kesalahan
-        // Contoh:
-        echo 'Data not found.';
-        exit(); // Hentikan eksekusi kode selanjutnya
-    }
-}
-
-if (isset($_POST['add'])) {
-    if (create($_POST) > 0) {
-        echo "<script>
-        alert('Data Berhasil di tambahkan');
-        document.location.href = 'dashboard.php';
-        </script>";
-    } else {
-        echo "<script>
-        alert('Data Berhasil di tambahkan');
-        document.location.href = 'dashboard.php';
-        </script>";
-    }
-}
-
-if (isset($_POST['edit'])) {
-    if (edit($_POST) > 0) {
-        echo "<script>
-        alert('Data Berhasil diubah');
-        document.location.href = 'dashboard.php';
-        </script>";
-    } else {
-        echo "<script>
-        alert('Data Gagal diubah');
-        document.location.href = 'dashboard.php';
-        </script>";
-    }
-}
-
 $data_students = select('SELECT * FROM tbl_students');
 ?>
 
@@ -280,7 +234,7 @@ $data_students = select('SELECT * FROM tbl_students');
                             <div id="editStudentModal<?= $id ?>" class="modal fade" data-backdrop="static">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="" method="post" enctype="multipart/form-data">
+                                        <form action="editdata.php" method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="id" value="<?= $tbl_students['id'] ?>">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Edit Student</h4>
@@ -394,7 +348,7 @@ $data_students = select('SELECT * FROM tbl_students');
         <div id="addStudentModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="" method="post" enctype="multipart/form-data">
+                    <form action="adddata.php" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="id">
                         <div class="modal-header">
                             <h4 class="modal-title">Add Student</h4>

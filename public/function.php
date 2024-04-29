@@ -1,6 +1,24 @@
 <?php
 
-$db = mysqli_connect('localhost', 'root', '', 'db_students');
+include "conn_students.php";
+
+$id = isset($_GET['id']) ? (int) $_GET['id'] : null;
+if ($id !== null) {
+    $tbl_students = select("SELECT * FROM tbl_students WHERE id = $id");
+
+    // Cek apakah ada data yang ditemukan
+    if (!empty($tbl_students)) {
+        $tbl_students = $tbl_students[0];
+    } else {
+        // Handle ketika data tidak ditemukan
+        // Misalnya, arahkan pengguna ke halaman lain atau tampilkan pesan kesalahan
+        // Contoh:
+        echo 'Data not found.';
+        exit(); // Hentikan eksekusi kode selanjutnya
+    }
+}
+
+
 function select($query)
 {
     $db = mysqli_connect('localhost', 'root', '', 'db_students');

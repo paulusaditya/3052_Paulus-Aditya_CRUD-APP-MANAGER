@@ -1,8 +1,6 @@
 <?php
-
-$db = mysqli_connect('localhost', 'root', '', 'db_students');
-
-include "function.php";
+include 'conn_students.php';
+include 'function.php';
 
 $id = (int)$_GET['id'];
 
