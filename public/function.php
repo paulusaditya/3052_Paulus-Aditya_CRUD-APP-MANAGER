@@ -25,13 +25,37 @@ function edit($post)
     $faculty = $post['faculty'];
     $programstudy = $post['programstudy'];
 
-    $query = "UPDATE tbl_students SET nim = '$nim', fullname = '$fullname', email = '$email', faculty = '$faculty', programstudy = '$programstudy' WHERE id = '$id'";
-    
-    mysqli_query($db, $query);
+    // Access uploaded file data
+    $image_name = $_FILES['image']['name'];
+    $image_tmp = $_FILES['image']['tmp_name'];
 
-    return mysqli_affected_rows($db);
+    // Check if file was uploaded successfully
+    if (!empty($image_name) && is_uploaded_file($image_tmp)) {
+        // Generate unique file name
+        $file_extension = pathinfo($image_name, PATHINFO_EXTENSION);
+        $encrypted_name = md5(uniqid(rand(), true));
+        $target_file = 'img/'. $encrypted_name . '.' . $file_extension;
 
+        // Move uploaded file to target directory
+        if (move_uploaded_file($image_tmp, $target_file)) {
+            // Update image information in the database
+            $query = "UPDATE tbl_students SET nim = '$nim', fullname = '$fullname', email = '$email', faculty = '$faculty', programstudy = '$programstudy', image ='$encrypted_name.$file_extension' WHERE id = '$id'";
+            mysqli_query($db, $query);
+
+            return mysqli_affected_rows($db);
+        } else {
+            // Error message if file upload fails
+            return "Error: Failed to upload image.";
+        }
+    } else {
+        // If no new image is uploaded, only update other information
+        $query = "UPDATE tbl_students SET nim = '$nim', fullname = '$fullname', email = '$email', faculty = '$faculty', programstudy = '$programstudy' WHERE id = '$id'";
+        mysqli_query($db, $query);
+
+        return mysqli_affected_rows($db);
+    }
 }
+
 
 function create($post)
 {

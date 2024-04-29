@@ -280,7 +280,7 @@ $data_students = select('SELECT * FROM tbl_students');
                             <div id="editStudentModal<?= $id ?>" class="modal fade" data-backdrop="static">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <form action="" method="post">
+                                        <form action="" method="post" enctype="multipart/form-data">
                                             <input type="hidden" name="id" value="<?= $tbl_students['id'] ?>">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Edit Student</h4>
@@ -326,6 +326,17 @@ $data_students = select('SELECT * FROM tbl_students');
                                                     )
                                                         ? $tbl_students['programstudy']
                                                         : ''; ?>" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Image</label>
+                                                    </br>
+                                                    <img src="img/<?= $tbl_students['image']; ?>" style="width: 100px; float:left; margin-bottom:5px;" alt="">
+                                                    <input type="file" class="form-control" name="image" id="image" value="<?php echo isset(
+                                                        $tbl_students['image']
+                                                    )
+                                                        ? $tbl_students['image']
+                                                        : ''; ?>" required>
+                                                        <i style="float:left; font-size:11px; color:red; font-style:italic">Abaikan jika tidak mengubah image</i>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
