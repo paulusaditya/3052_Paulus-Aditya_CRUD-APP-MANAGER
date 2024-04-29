@@ -10,7 +10,7 @@ if (isset($_POST['add'])) {
         </script>";
     } else {
         echo "<script>
-        alert('Data Berhasil di tambahkan');
+        alert('Data Gagal di tambahkan');
         document.location.href = 'dashboard.php';
         </script>";
     }
