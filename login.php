@@ -10,7 +10,7 @@ $query_sql = "SELECT * FROM tbl_users
 $result = mysqli_query($conn, $query_sql);
 
 if (mysqli_num_rows($result) > 0) {
-    header("Location: dashboard.php");
+    header("Location: public/dashboard.php");
 } else {
     echo "<script> 
         alert('Email atau password anda salah, Silahkan coba lagi.')

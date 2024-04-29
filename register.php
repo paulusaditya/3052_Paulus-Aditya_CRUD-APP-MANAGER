@@ -1,30 +1,28 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="assets/Logo (2).png">
-    <title>Student Apps | Login</title>
+    <title>Student Apps | Register</title>
+    <link rel="icon" type="image/x-icon" href="public/assets/Logo (2).png">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
         *{
             font-family: 'Poppins', sans-serif;
         }
-
+        
         body {
-            background-image: url(assets/background.png);
+            background-image: url(public/assets/background.png);
             background-repeat: no-repeat;
             background-size: 100%;
-            font-family: cursive;
+            
         }
+
         form {
             display: flex;
             flex-direction: column;
         }
-
         .login-box {
             position: absolute;
             top: 50%;
@@ -44,10 +42,9 @@
             padding: 0;
             color: #EC9F13;
             text-align: center;
+            font-size: 1.5rem;
             font-weight: bold;
             letter-spacing: 1px;
-            font-size: 25px;
-            font-weight: 600;
         }
 
         .login-box .user-box {
@@ -132,6 +129,7 @@
             color: var(--button_outline_color);
             transform: translateY(-0.2em);
             transition: transform 0.1s ease;
+
         }
 
         button:hover .button_top {
@@ -165,22 +163,38 @@
 <body>
     <div class="container">
         <div class="login-box">
-            <p>Login Students Apps</p>
-            <form action="login.php" method="post">
+            <p>Register Students Apps</p>
+            <form action="register1.php" method="POST">
+                <div class="user-box">
+                    <input required="" name="fullname" type="text" id="fullname">
+                    <label for="fullname">Full Name</label>
+                </div>
+                <div class="user-box">
+                    <input required="" name="nim" type="number" id="nim">
+                    <label for="nim">NIM</label>
+                </div>
                 <div class="user-box">
                     <input required="" name="email" type="text" id="email">
                     <label for="email">Email</label>
+                </div>
+                <div class="user-box">
+                    <input required="" name="studyprogram" type="text" id="studyprogram">
+                    <label for="studyprogram">Study Program</label>
+                </div>
+                <div class="user-box">
+                    <input required="" name="faculty" type="text" id="faculty">
+                    <label for="faculty">Faculty</label>
                 </div>
                 <div class="user-box">
                     <input required="" name="password" type="password" id="password">
                     <label for="password">Password</label>
                 </div>
                 <button>
-                    <span class="button_top"> Login
+                    <span class="button_top"> Register
                     </span>
                 </button>
             </form>
-            <p>Don't have an account? <a href="register.php" class="a2">Register.</a></p>
+            <p> Have an account? <a href="index.php" class="a2">Login.</a></p>
         </div>
     </div>
 </body>
