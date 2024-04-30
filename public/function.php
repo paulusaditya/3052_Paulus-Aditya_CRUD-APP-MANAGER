@@ -2,26 +2,30 @@
 
 include "conn_students.php";
 
-$id = isset($_GET['id']) ? (int) $_GET['id'] : null;
-if ($id !== null) {
-    $tbl_students = select("SELECT * FROM tbl_students WHERE id = $id");
+// Establish database connection
+$db = mysqli_connect('localhost', 'root', '', 'db_students');
 
-    // Cek apakah ada data yang ditemukan
-    if (!empty($tbl_students)) {
-        $tbl_students = $tbl_students[0];
-    } else {
-        // Handle ketika data tidak ditemukan
-        // Misalnya, arahkan pengguna ke halaman lain atau tampilkan pesan kesalahan
-        // Contoh:
-        echo 'Data not found.';
-        exit(); // Hentikan eksekusi kode selanjutnya
+// Fungsi untuk mengambil data dari database
+if (!function_exists('select')) {
+    function select($query)
+    {
+        global $db; // Akses koneksi database global
+
+        $result = mysqli_query($db, $query);
+        $rows = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
     }
 }
 
 
 function select($query)
 {
-    $db = mysqli_connect('localhost', 'root', '', 'db_students');
+    global $db; // Access global database connection
+
     $result = mysqli_query($db, $query);
     $rows = [];
 
@@ -79,7 +83,6 @@ function create($post)
 {
     $db = mysqli_connect('localhost', 'root', '', 'db_students');
 
-    $id = $post['id'];
     $nim = $post['nim'];
     $fullname = $post['fullname'];
     $email = $post['email'];
@@ -108,8 +111,8 @@ function create($post)
             echo "<script>alert('NIM sudah terdaftar! Silakan gunakan NIM yang berbeda.'); document.location.href = 'dashboard.php';</script>";
         } else {
             // Insert data into database
-            $query = "INSERT INTO tbl_students (id, nim, fullname, email, faculty, programstudy, image) 
-                      VALUES ('$id', '$nim', '$fullname', '$email', '$faculty', '$programstudy', '$encrypted_name.$file_extension')";
+            $query = "INSERT INTO tbl_students (nim, fullname, email, faculty, programstudy, image) 
+                      VALUES ('$nim', '$fullname', '$email', '$faculty', '$programstudy', '$encrypted_name.$file_extension')";
             $result = mysqli_query($db, $query);
 
             if (!$result) {

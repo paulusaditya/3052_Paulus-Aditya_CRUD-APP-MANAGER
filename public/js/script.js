@@ -21,17 +21,17 @@ modeSwitch.addEventListener('click', () => {
   }
 })
 
-// logoutLink.addEventListener('click', function (event) {
-//   event.preventDefault(); // Mencegah pengalihan formulir bawaan
+logoutLink.addEventListener('click', function (event) {
+  event.preventDefault(); // Mencegah pengalihan formulir bawaan
 
-//   const confirmation = confirm('Are you sure you want to log out?');
+  const confirmation = confirm('Are you sure you want to log out?');
 
-//   if (confirmation) {
-//     console.log('User confirmed logout. Redirecting...');
+  if (confirmation) {
+    console.log('User confirmed logout. Redirecting...');
     
-//     // Mengarahkan ke index.php di luar folder public
-//     window.location.href = '/3052_Paulus Aditya_CRUD APP MANAGER/index.php';
-//   } else {
-//     console.log('User canceled logout.');
-//   }
-// });
+    // Mengarahkan ke index.php di luar folder public
+    window.location.href = '/3052_Paulus Aditya_CRUD APP MANAGER/index.php';
+  } else {
+    console.log('User canceled logout.');
+  }
+});

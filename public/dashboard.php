@@ -349,7 +349,6 @@ $data_students = select('SELECT * FROM tbl_students');
             <div class="modal-dialog">
                 <div class="modal-content">
                     <form action="adddata.php" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id">
                         <div class="modal-header">
                             <h4 class="modal-title">Add Student</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

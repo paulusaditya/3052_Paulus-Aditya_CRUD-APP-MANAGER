@@ -14,5 +14,6 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "<script> 
         alert('Email atau password anda salah, Silahkan coba lagi.')
+        document.location.href = 'index.php';
     </script>";
 }
