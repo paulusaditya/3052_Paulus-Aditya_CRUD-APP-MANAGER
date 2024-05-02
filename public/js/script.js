@@ -35,3 +35,4 @@ logoutLink.addEventListener('click', function (event) {
     console.log('User canceled logout.');
   }
 });
+

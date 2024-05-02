@@ -43,7 +43,7 @@ $data_students = select('SELECT * FROM tbl_students');
                 </span>
                 <div class="text logo-text">
                     <span class="name">Students Apps</span>
-                    <span class="profession">Hallo Admin</span>
+                    <span class="profession">Hello Admin</span>
                 </div>
                 <i class='bx bx-chevron-right toggle'></i>
         </header>
