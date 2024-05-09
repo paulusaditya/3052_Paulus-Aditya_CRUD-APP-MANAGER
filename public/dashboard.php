@@ -1,8 +1,15 @@
 <?php
-
 include 'function.php';
+session_start();
+
+if(!isset($_SESSION["login"])){
+    header("Location: ../index.php");
+    exit;
+}
+
 $data_students = select('SELECT * FROM tbl_students');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -95,7 +102,7 @@ $data_students = select('SELECT * FROM tbl_students');
             </div>
             <div class="bottom-content">
                 <li class="">
-                    <a href="#" id="logout-link"> <i class='bx bx-log-out icon'></i>
+                    <a href="logout.php" id="logout"> <i class='bx bx-log-out icon'></i>
                         <span class="text nav-text">Logout</span>
                     </a>
                 </li>

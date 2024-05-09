@@ -4,7 +4,7 @@ const body = document.querySelector('body'),
   searchBtn = body.querySelector('.search-box'),
   modeSwitch = body.querySelector('.toggle-switch'),
   modeText = body.querySelector('.mode-text')
-logoutLink = document.getElementById('logout-link')
+logoutLink = document.getElementById('logout')
 toggle.addEventListener('click', () => {
   sidebar.classList.toggle('close')
 })
@@ -21,18 +21,4 @@ modeSwitch.addEventListener('click', () => {
   }
 })
 
-logoutLink.addEventListener('click', function (event) {
-  event.preventDefault(); // Mencegah pengalihan formulir bawaan
-
-  const confirmation = confirm('Are you sure you want to log out?');
-
-  if (confirmation) {
-    console.log('User confirmed logout. Redirecting...');
-    
-    // Mengarahkan ke index.php di luar folder public
-    window.location.href = '/3052_Paulus Aditya_CRUD APP MANAGER/index.php';
-  } else {
-    console.log('User canceled logout.');
-  }
-});
 

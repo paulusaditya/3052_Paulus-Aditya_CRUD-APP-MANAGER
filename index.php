@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+if(isset($_COOKIE['id']) && isset($_COOKIE['key'])){
+    $id = $_COOKIE['id'];
+    $key = $_COOKIE['key'];
+
+    $result = mysqli_query($db, "SELECT email FROM tbl_students WHERE id = $id");
+    $row = mysqli_fetch_assoc($result);
+
+
+    if($key === hash('sha256', $row['password'])){
+        $_SESSION['login'] = true;
+    } 
+}
+
+if(isset($_SESSION["login"])){
+    header("Location: public/dashboard.php");
+    exit;
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -158,6 +180,13 @@
             color: #aaa;
             border-radius: 5px;
         }
+
+        .remember{
+            display: flex;
+            position: relative;
+            bottom: 20px;
+        }
+
     </style>
 </head>
 
@@ -173,6 +202,10 @@
                 <div class="user-box">
                     <input required="" name="password" type="password" id="password">
                     <label for="password">Password</label>
+                </div>
+                <div class="remember">
+                    <input required="" name="remember" type="checkbox" id="remember">
+                    <label for="remember">Remember Me</label>
                 </div>
                 <button>
                     <span class="button_top"> Login
