@@ -9,16 +9,16 @@ Router::url('login', 'get', 'AuthController::index');
 Router::url('register', 'get', 'AuthController::register');
 Router::url('dashboard', 'get', 'DashboardController::dashboard');
 Router::url('dashboard/logout', 'get', 'AuthController::logout');
-Router::url('student/add', 'get', 'ContactController::add');
-Router::url('student/edit', 'get', 'ContactController::edit');
-Router::url('student/remove', 'get', 'ContactController::remove');
+Router::url('student/add', 'get', 'StudentController::add');
+Router::url('student/edit', 'get', 'StudentController::edit');
+Router::url('student/remove', 'get', 'StudentController::remove');
 Router::url('freshdb', 'get', 'freshdb');
-Router::url('report', 'get', 'ContactController::report');
+Router::url('report', 'get', 'StudentController::report');
 
 # POST
 Router::url('login', 'post', 'AuthController::saveLogin');
 Router::url('register', 'post', 'AuthController::saveRegister');
-Router::url('student/add', 'post', 'ContactController::saveAdd');
-Router::url('student/edit', 'post', 'ContactController::saveEdit');
+Router::url('student/add', 'post', 'StudentController::saveAdd');
+Router::url('student/edit', 'post', 'StudentController::saveEdit');
 
 new Router();
