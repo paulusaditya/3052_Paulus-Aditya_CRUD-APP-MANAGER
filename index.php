@@ -204,7 +204,7 @@ if(isset($_SESSION["login"])){
                     <label for="password">Password</label>
                 </div>
                 <div class="remember">
-                    <input required="" name="remember" type="checkbox" id="remember">
+                    <input name="remember" type="checkbox" id="remember">
                     <label for="remember">Remember Me</label>
                 </div>
                 <button>
